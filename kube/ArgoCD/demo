@@ -1,0 +1,40 @@
+## Setup of Argo:
+==============
+
+kubectl create namespace argocd
+
+kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+kubectl get svc -n argocd
+
+kubectl edit svc argocd-server -n argocd
+
+##replace ClusterIP with NodePort
+
+kubectl get svc -n argocd
+
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+
+access with master/nodeIP: nodePort --> to access the Argo CD UI
+
+username: admin
+
+password: Output of Line  above.
+
+
+Navigation :
+============
+
+App Repo: https://github.com/lerndevops/argo-demo
+
+Setting --> Repo --> select github using https --> give the url and Connect
+
+
+Select NewApp
+Name: anyname
+Sync: manual/auto
+Repo :github repo
+path : .
+cluster: https://kubernetes.default.svc
+namespace: your choice
+
